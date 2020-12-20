@@ -53,7 +53,7 @@ jobs:
           path: build/reports/tests/*
           if-no-files-found: ignore
 
-  build-other-platforms:
+  build-platforms:
     name: Build with Java ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
@@ -68,6 +68,22 @@ jobs:
 
       - name: Gradle build
         run: ./gradlew build
+
+      - name: Archive test results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results-java${{ matrix.java }}-${{ matrix.os }}
+          path: build/test-results/**/TEST-*.xml
+          if-no-files-found: ignore
+
+      - name: Archive test reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-reports-java${{ matrix.java }}-${{ matrix.os }}
+          path: build/reports/tests/*
+          if-no-files-found: ignore
 
     strategy:
       fail-fast: false
