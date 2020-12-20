@@ -25,6 +25,34 @@ jobs:
       - name: Gradle build
         run: ./gradlew build
 
+      - name: Gradle publish
+        run: ./gradlew publishToMavenLocal
+
+      - name: Archive distributions
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: |
+            ~/.m2/repository/com/github/jakemarsden/workflow-test/*
+            !~/.m2/repository/com/github/jakemarsden/workflow-test/maven-metadata-local.xml
+          if-no-files-found: error
+
+      - name: Archive test results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: build/test-results/**/TEST-*.xml
+          if-no-files-found: ignore
+
+      - name: Archive test reports
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-reports
+          path: build/reports/tests/*
+          if-no-files-found: ignore
+
     strategy:
       fail-fast: false
       matrix:

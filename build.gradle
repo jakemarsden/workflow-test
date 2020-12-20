@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'com.github.jakemarsden'
@@ -27,4 +28,16 @@ java {
 
 test {
     useJUnitPlatform()
+    reports {
+        html.enabled = true
+        junitXml.enabled = true
+    }
+}
+
+publishing {
+    publications {
+        main(MavenPublication) {
+            from components.java
+        }
+    }
 }
