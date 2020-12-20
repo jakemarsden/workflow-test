@@ -1,0 +1,26 @@
+name: Check PR
+
+on:
+  push:
+    branches-ignore:
+      - develop
+
+jobs:
+  build:
+    name: Check pull request
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      - name: Configure JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Gradle check
+        run: ./gradlew check
