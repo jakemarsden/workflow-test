@@ -7,6 +7,7 @@
 For testing out GitHub Workflows, Actions, Checks etc.
 
 This change is for a pull request to test workflow behaviour.
+This change is for a pull request to test workflow behaviour.
 
 [latest-release]: https://github.com/jakemarsden/workflow-test/releases
 [latest-release-badge]: https://img.shields.io/github/v/tag/jakemarsden/workflow-test?label=version&sort=semver
