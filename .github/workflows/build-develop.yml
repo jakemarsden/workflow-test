@@ -31,8 +31,8 @@ jobs:
         java:
           - 11
         os:
-          - ubuntu-16.04
           - ubuntu-latest
+          - ubuntu-16.04
           - macos-latest
           - windows-latest
         include:

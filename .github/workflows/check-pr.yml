@@ -4,11 +4,12 @@ on:
   push:
     branches-ignore:
       - develop
+  workflow_dispatch:
 
 jobs:
-  build:
-    name: Check pull request
-    runs-on: ubuntu-latest
+  check:
+    name: Check with Java ${{ matrix.java }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -20,7 +21,15 @@ jobs:
       - name: Configure JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: ${{ matrix.java }}
 
       - name: Gradle check
         run: ./gradlew check
+
+    strategy:
+      fail-fast: false
+      matrix:
+        java:
+          - 11
+        os:
+          - ubuntu-latest
