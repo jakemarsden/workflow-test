@@ -31,17 +31,17 @@ jobs:
       - name: Archive distributions
         uses: actions/upload-artifact@v2
         with:
-          name: dist
+          name: dist-java${{ matrix.java }}-${{ matrix.os }}
           path: |
             ~/.m2/repository/com/github/jakemarsden/workflow-test/*
-            !~/.m2/repository/com/github/jakemarsden/workflow-test/maven-metadata-local.xml
+            !~/.m2/repository/com/github/jakemarsden/workflow-test/**/maven-metadata-local.xml
           if-no-files-found: error
 
       - name: Archive test results
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: test-results
+          name: test-results-java${{ matrix.java }}-${{ matrix.os }}
           path: build/test-results/**/TEST-*.xml
           if-no-files-found: ignore
 
@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-          name: test-reports
+          name: test-reports-java${{ matrix.java }}-${{ matrix.os }}
           path: build/reports/tests/*
           if-no-files-found: ignore
 
