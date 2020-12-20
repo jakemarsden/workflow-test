@@ -53,10 +53,9 @@ jobs:
           path: build/reports/tests/*
           if-no-files-found: ignore
 
-  build-matrix:
+  build-other-platforms:
     name: Build with Java ${{ matrix.java }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    needs: build
 
     steps:
       - name: Checkout
